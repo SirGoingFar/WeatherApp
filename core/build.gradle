@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+}
+
+android {
+
+    def app = rootProject.ext.app
+
+    compileSdkVersion app.compileSdkVersion
+    buildToolsVersion app.buildToolVersion
+
+    defaultConfig {
+        minSdkVersion app.minSdkVersion
+        targetSdkVersion app.targetSdkVersion
+        versionCode app.versionCode
+        versionName app.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+}
+
+dependencies {
+
+    def platformDeps = rootProject.ext.platform
+    def thirdPartyLibDeps = rootProject.ext.thirdParty
+
+    //Platform dependencies
+    api platformDeps.stdLib
+    api platformDeps.appCompat
+    api platformDeps.material
+    api platformDeps.lifecycle
+    api platformDeps.constraintLayout
+    api platformDeps.coreKtx
+
+    //Third-party dependencies
+    api thirdPartyLibDeps.moshiKotlin
+    api thirdPartyLibDeps.moshiKotlinCodegen
+    api thirdPartyLibDeps.retrofit
+    api thirdPartyLibDeps.okHttp
+    api thirdPartyLibDeps.gsonConverter
+    api thirdPartyLibDeps.rxConverter
+    api thirdPartyLibDeps.rxJava
+    api thirdPartyLibDeps.rxAndroid
+    api thirdPartyLibDeps.dagger
+    api thirdPartyLibDeps.daggerAndroid
+    api thirdPartyLibDeps.timber
+    api thirdPartyLibDeps.glide
+
+    //Annotation Processors
+    kapt thirdPartyLibDeps.daggerCompiler
+    kapt thirdPartyLibDeps.daggerAndroidProcessor
+
+}

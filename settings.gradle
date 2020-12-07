@@ -1,0 +1,4 @@
+include ':navigation'
+include ':core'
+include ':weatherapp'
+rootProject.name = "WeatherApp"
